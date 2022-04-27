@@ -28,6 +28,7 @@ colors = ['red', 'yellow', 'orange', 'green', 'blue', 'purple']
 for l in range(len(sat_names)):
     xpt, ypt = map(sat_data[0][1][0], sat_data[0][0][0])
     map.scatter(xpt, ypt, color=colors[l], label=sat_names[l])
+plt.legend(loc="upper right")
 
 for t in range(len(track_ship[:, 3])):  # цикл по времени
     color_num = -1
@@ -42,5 +43,4 @@ for t in range(len(track_ship[:, 3])):  # цикл по времени
             if checkers.is_near_sat(lat_lon, track_ship[t, 1:5], WIN_ANGLE, buoy=ONLY_BUOY):
                 drawers.draw_point(map, lat_lon, colors[color_num])
 
-plt.legend(loc="upper right")
 plt.show()

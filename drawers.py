@@ -32,7 +32,9 @@ def draw_coords(m: Basemap, track_lat: np.ndarray, track_lon: np.ndarray, track_
     :param m: карта
     :param track_lat: широты трека
     :param track_lon: долготы трека
-    :param color: цвет
+    :param track_buoy: флаг буя трека
+    :param color1: цвет трека без буя
+    :param color2: цвет трека с буем
     """
     xpt, ypt = m(track_lon, track_lat)
     m.scatter(xpt, ypt, color=color1, label="-buoy")
