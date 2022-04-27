@@ -28,7 +28,7 @@ def read_sat_data(names: list) -> np.ndarray:
     """
     res = np.ndarray(shape=(len(names), 4), dtype=np.ndarray)
     for i in range(len(names)):
-        files = glob.glob(names[i] + '/*.nc')
+        files = glob.glob('recources/' + names[i] + '/*.nc')
         files.sort()
 
         res[i, 0] = np.array(nc.Dataset(files[0]).variables['time'][:])

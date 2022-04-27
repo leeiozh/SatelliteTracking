@@ -25,7 +25,8 @@ def draw_grid(m: Basemap):
     m.drawmeridians(np.arange(0, 360, 5))
 
 
-def draw_coords(m: Basemap, track_lat: np.ndarray, track_lon: np.ndarray, color: str):
+def draw_coords(m: Basemap, track_lat: np.ndarray, track_lon: np.ndarray, track_buoy: np.ndarray, color1: str,
+                color2: str):
     """
     отрисовывает трек на карте
     :param m: карта
@@ -34,7 +35,9 @@ def draw_coords(m: Basemap, track_lat: np.ndarray, track_lon: np.ndarray, color:
     :param color: цвет
     """
     xpt, ypt = m(track_lon, track_lat)
-    m.scatter(xpt, ypt, color=color)
+    m.scatter(xpt, ypt, color=color1, label="-buoy")
+    xpt, ypt = m(track_lon * track_buoy, track_lat * track_buoy)
+    m.scatter(xpt, ypt, color=color2, label="+buoy")
 
 
 def draw_point(m: Basemap, lat_lon: np.ndarray, color: str):
@@ -45,4 +48,4 @@ def draw_point(m: Basemap, lat_lon: np.ndarray, color: str):
     :param color: цвет
     """
     xpt, ypt = m(lat_lon[1], lat_lon[0])
-    m.scatter(xpt, ypt, color=color)
+    m.scatter(xpt, ypt, color=color, alpha=0.5)
