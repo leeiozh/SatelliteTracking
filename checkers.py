@@ -21,8 +21,6 @@ def get_area_coords(sat: np.ndarray, fmin: (int, float), num: int) -> (np.ndarra
     """
     start = max(0, fmin[0] - num)
     end = min(fmin[0] + num + 1, len(sat[1]))
-    # print(sat[1][start:end], sat[2][start:end])
-    # if fmin[0] - num > 0 and fmin[0] + num < len(sat[1]):
     return sat[1][start:end], sat[2][start:end]
 
 
@@ -34,7 +32,6 @@ def is_near_sat(sat_area: np.ndarray, track: np.ndarray, deg: float, buoy: bool)
     :param deg: окно по координатам в градусах
     :return: попадает ли кусок траектории спутника в окно трека судна
     """
-    # print(np.linalg.norm(sat_area - track))
     if not buoy:  # обрабатывать все точки
         if track[1] < 0:  # перевод долготы трека в долготу спутника
             tmp_track = [track[0], track[1] + 360]
@@ -43,7 +40,7 @@ def is_near_sat(sat_area: np.ndarray, track: np.ndarray, deg: float, buoy: bool)
             else:
                 return False
         else:
-            if np.abs(np.linalg.norm(sat_area - track)) < deg:
+            if np.abs(np.linalg.norm(sat_area - track[:2])) < deg:
                 return True
             else:
                 return False

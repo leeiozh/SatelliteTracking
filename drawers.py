@@ -21,7 +21,7 @@ def draw_grid(m: Basemap):
     отрисовывает сетку на карте
     :param m: карта
     """
-    m.drawparallels(np.arange(-90, 90, 5))
+    m.drawparallels(np.arange(-90, 95, 5))
     m.drawmeridians(np.arange(0, 360, 5))
 
 

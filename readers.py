@@ -16,11 +16,11 @@ def read_track(file: str) -> TRACK_TYPE:
     data = pd.read_csv(file, delimiter=";")
     data["time"] = data["time"].apply(converters.utc_to_sec)
     data["buoy_station"].fillna(0, inplace=True)
-    data["buoy_station"] /= data["station"]
+    data["buoy_station"] = np.where((data["buoy_station"] != 0), 1, data["buoy_station"])
     return data.to_numpy()
 
 
-def read_sat_data(names: list) -> np.ndarray:
+def read_sat_data(exp: str, names: list) -> np.ndarray:
     """
     чтенеи данных со спутника
     :param names: имена спутников (совпадают с именем папки)
@@ -28,7 +28,7 @@ def read_sat_data(names: list) -> np.ndarray:
     """
     res = np.ndarray(shape=(len(names), 4), dtype=np.ndarray)
     for i in range(len(names)):
-        files = glob.glob('recources/' + names[i] + '/*.nc')
+        files = glob.glob(exp + '/resources/' + names[i] + '/*.nc')
         files.sort()
 
         res[i, 0] = np.array(nc.Dataset(files[0]).variables['time'][:])
